@@ -30,7 +30,7 @@ import numpy as np
 
 
 def download_video(url, fmt, video_dir):
-    cmd = ['youtube-dl', '--ignore-errors', 
+    cmd = ['~/packages/youtube-dl', '--ignore-errors',
            '--download-archive', 'scraping/downloaded_video.txt', 
            '--format', fmt, 
            '-o', '"{}/%(id)s.video.%(ext)s"'.format(video_dir),
@@ -39,7 +39,7 @@ def download_video(url, fmt, video_dir):
 
 
 def download_audio(url, fmt, audio_dir):
-    cmd = ['youtube-dl', '--ignore-errors', 
+    cmd = ['~/packages/youtube-dl', '--ignore-errors',
            '--download-archive', 'scraping/downloaded_audio.txt', 
            '--format', fmt, 
            '-o', '"{}/%(id)s.audio.f%(format_id)s.%(ext)s"'.format(audio_dir),
