@@ -1,15 +1,17 @@
 import os
 import scipy.signal
 import numpy as np
+from soundfile import SoundFile
 from pyutils.iolib.video import getFFprobeMeta
 from pyutils.cmd import runSystemCMD
-from scikits.audiolab import Sndfile, Format
+# from scikits.audiolab import Sndfile, Format
 import tempfile
 import resampy
 
 
 def load_wav(fname, rate=None):
-    fp = Sndfile(fname, 'r')
+    # fp = Sndfile(fname, 'r')
+    fp = SoundFile(fname, 'r')
     _signal = fp.read_frames(fp.nframes)
     _signal = _signal.reshape((-1, fp.channels))
     _rate = fp.samplerate
@@ -29,7 +31,8 @@ def load_wav(fname, rate=None):
 
 
 def save_wav(fname, signal, rate):
-    fp = Sndfile(fname, 'w', Format('wav'), signal.shape[1], rate)
+    # fp = Sndfile(fname, 'w', Format('wav'), signal.shape[1], rate)
+    fp = SoundFile(fname, 'w', rate, signal.shape[1])
     fp.write_frames(signal)
     fp.close()
 
@@ -149,7 +152,8 @@ class AudioReader2:
         fns = os.listdir(audio_folder)
         self.num_files = len(fns)
 
-        fp = Sndfile(os.path.join(self.audio_folder, fns[0]), 'r')
+        # fp = Sndfile(os.path.join(self.audio_folder, fns[0]), 'r')
+        fp = SoundFile(os.path.join(self.audio_folder, fns[0]), 'r')
         data, fps = load_wav(os.path.join(self.audio_folder, fns[0]))
         self.rate = float(fp.samplerate) if rate is not None else fps
         self.num_channels = fp.channels
